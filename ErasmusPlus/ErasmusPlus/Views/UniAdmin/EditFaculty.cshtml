@@ -1,0 +1,39 @@
+﻿@model ErasmusPlus.Models.ViewModels.Admin.NewFacultyViewModel
+@{
+    ViewBag.Title = "Edit faculty";
+}
+
+@* Use this input to change page context in diferent views *@
+<input type="hidden" style="display: none" id="CurrentPage" value="NewFaculty" />
+
+<div class="box box-default">
+    <div class="box-body">
+        @using (Html.BeginForm("NewFaculty", "UniAdmin", FormMethod.Post))
+        {
+            @Html.HiddenFor(x => x.Id)
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label>Name</label>
+                </div>
+                <div class="col-xs-9 form-group">
+                    @Html.TextBoxFor(x => x.Name,  new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label>Study fields</label>
+                </div>
+                <div class="col-xs-9 form-group">
+                    @Html.ListBoxFor(x => x.SelectedFos, Model.StudyFields, new { id = "studyFields" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-offset-9">
+                </div>
+                <div class="col-xs-3 ">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

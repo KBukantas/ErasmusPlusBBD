@@ -1,0 +1,165 @@
+﻿@using ErasmusPlus.Common.SharedModels
+@model ErasmusPlus.Models.ViewModels.Student.AgreementViewModel
+@{
+    ViewBag.Title = "Learning Agreement";
+}
+
+@* Use this input to change page context in diferent views *@
+<input type="hidden" style="display: none" id="CurrentPage" value="StudentAgreement"/>
+
+@using (Ajax.BeginForm("Agreement", "Student", new AjaxOptions()
+{
+    HttpMethod = "POST",
+    OnSuccess = "ShowSaveResult",
+    OnFailure = "ShowSaveResult"
+}))
+{
+    <div class="box box-default">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-xs-2 form-group">
+                    <label>Universities</label>
+                </div>
+                <div class="col-xs-5 form-group">
+                    @Html.DropDownListFor(x => x.SelectedSourceUniversity, Model.SourceUniversities, "Select source university", new { id = "srcUni" })
+                </div>
+                <div class="col-xs-5 form-group">
+                    @Html.DropDownListFor(x => x.SelectedTargetUniversity, Model.TargetUniversities, "Select target university", new {id="trgUni"})
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-2 form-group">
+                    <label>Faculties</label>
+                </div>
+                <div class="col-xs-5 form-group">
+                    @Html.DropDownListFor(x => x.SelectedSourceFaculty, Model.SourceFaculties, "Select source faculty", new { id = "srcFaculty" })
+                </div>
+                <div class="col-xs-5 form-group">
+                    @Html.DropDownListFor(x => x.SelectedTargetFaculty, Model.TargetFaculties, "Select target faculty", new { id = "trgFaculty" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-2 form-group">
+                    <label>Field of study</label>
+                </div>
+                <div class="col-xs-5 form-group">
+                    @Html.DropDownListFor(x => x.SelectedSourceFieldOfStudy, Model.SourceFieldsOfStudy, "Select source field of study", new { id = "srcFos" })
+                </div>
+                <div class="col-xs-5 form-group">
+                    @Html.DropDownListFor(x => x.SelectedTargetFieldOfStudy, Model.TargetFieldsOfStudy, "Select target field of study", new { id = "trgFos" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="box box-default">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-xs-2 form-group">
+                    <label>Semester</label>
+                </div>
+                <div class="col-xs-5 form-group">
+                    @Html.DropDownListFor(x => x.SelectedSemester, Model.Semesters, "Select semester", new { id = "semester" })
+                </div>
+              
+                <div class="col-xs-5 form-group">
+                    @Html.DropDownListFor(x => x.SelectedSemester, Model.Semesters, "Select semester", new { id = "disabledSemester", disabled = ""})
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="col-xs-2 form-group">
+                    <label>Study subjects</label>
+                </div>
+                <div class="col-xs-5 form-group">
+                    <div>
+                        @Html.ListBoxFor(x => x.SelectedSourceStudySubjects, Model.SourceStudySubjects, new {id = "srcStudySubjects"})
+                    </div>
+                    <div><i class="fa fa-info-circle" title="Credit count must match"></i><label id="srcTotal">Total: 0</label></div>
+                </div>
+                <div class="col-xs-5 form-group">
+                    <div>
+                        @Html.ListBoxFor(x => x.SelectedTargetStudySubjects, Model.TargetStudySubjects, new {id = "trgStudySubjects"})
+                    </div>
+                    <div><label id="trgTotal">Total: 0</label></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="box box-default">
+        <div class="box-body">
+            <div class="row">
+                <div class="col-xs-2 form-group">
+                    <label>Language</label>
+                </div>
+                <div class="col-xs-2 form-group">
+                    @Html.TextBoxFor(x => x.Language, new { @class = "form-control" })
+                </div>
+                <div class="col-xs-8 form-group">
+                    @foreach (var languageLevel in Enum.GetValues(typeof(LanguageLevel)))
+                    {
+                    var id = TagBuilder.CreateSanitizedId(string.Format("{0}_{1}_{2}", "rdbtn", typeof(LanguageLevel), languageLevel));
+                    <div class="left">
+                        @Html.RadioButtonFor(x => x.LanguageLevel, languageLevel, new { id })
+                        @Html.Label(languageLevel.ToString(), new { @for = id })
+                    </div>
+                    }
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-2 form-group">
+                    <label>Leaving</label>
+                </div>
+                <div class="col-xs-4 form-group">
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        @Html.TextBoxFor(x => x.From, new { id = "from", @class = "form-control datepicker", value = Model.From.ToString("yyyy-MM-dd") } )
+                    </div>
+                </div>
+                <div class="col-xs-2 form-group">
+                    <label>Returning</label>
+                </div>
+                <div class="col-xs-4 form-group">
+                    <div class="input-group date">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar"></i>
+                        </div>
+                        @Html.TextBoxFor(x => x.To, new {  id = "to", @class = "form-control datepicker", value = Model.To.ToString("yyyy-MM-dd") } )
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-offset-9">
+                </div>
+                <div class="col-xs-3 ">
+                    <input id="save" type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<div id="modalResult" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Result</h4>
+            </div>
+            <div id="modalBody" class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var isEdit = '@ViewBag.IsEdit';
+</script>

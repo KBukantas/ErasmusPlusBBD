@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ErasmusPlus.Common.Authorization.UserRoles" Collapsed="true">
+    <Position X="4" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAEAAAEAIAEAAAAAEAQAAARAAAAQAAAAA=</HashCode>
+      <FileName>Authorization\UserRoles.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ErasmusPlus.Common.Database.Agreement">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQCAAABCgAAAAAAIAYCKDRgBACCCAAQAQAABECEAAA=</HashCode>
+      <FileName>Database\Agreement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ErasmusPlus.Common.Database.Faculty" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAIAAEAAAAAAIAA=</HashCode>
+      <FileName>Database\Faculty.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ErasmusPlus.Common.Database.FieldOfStudy" Collapsed="true">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAQQAAAAAIAAAAAAAAQQAAAAAAIAAEAAAAAAAAA=</HashCode>
+      <FileName>Database\FieldOfStudy.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ErasmusPlus.Common.Database.StudySubjects" Collapsed="true">
+    <Position X="4" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAACgAAACAAAAIAAIIAAAAQAAAAAAAIAEEAACAAAAAA=</HashCode>
+      <FileName>Database\StudySubjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ErasmusPlus.Common.Database.University" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQACAAAAAAAAAAAIAAAAAAQAAAIAAAACAAAAAAAAAQA=</HashCode>
+      <FileName>Database\University.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ErasmusPlus.Common.Database.UniversityAgreements" Collapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAICABBAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Database\UniversityAgreements.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ErasmusPlus.Common.Database.UserPermissions" Collapsed="true">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAADAAAQAAAAAIAAAAAAAAgAAAAAAAIAAEAAAAAAAAA=</HashCode>
+      <FileName>Database\UserPermissions.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Object" Collapsed="true">
+    <Position X="8.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

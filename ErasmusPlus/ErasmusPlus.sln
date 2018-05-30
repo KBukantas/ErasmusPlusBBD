@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErasmusPlus", "ErasmusPlus\ErasmusPlus.csproj", "{5C82CDB0-15A4-4ACC-B481-A88703B11A84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ErasmusPlus.Common", "ErasmusPlus.Common\ErasmusPlus.Common.csproj", "{9FFB7E5A-9921-48F6-918A-D13089C37FD4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5C82CDB0-15A4-4ACC-B481-A88703B11A84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C82CDB0-15A4-4ACC-B481-A88703B11A84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C82CDB0-15A4-4ACC-B481-A88703B11A84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C82CDB0-15A4-4ACC-B481-A88703B11A84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FFB7E5A-9921-48F6-918A-D13089C37FD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FFB7E5A-9921-48F6-918A-D13089C37FD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FFB7E5A-9921-48F6-918A-D13089C37FD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FFB7E5A-9921-48F6-918A-D13089C37FD4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3DB5FEF8-4C59-4D0B-97D4-DEC721AC38F5}
+	EndGlobalSection
+EndGlobal

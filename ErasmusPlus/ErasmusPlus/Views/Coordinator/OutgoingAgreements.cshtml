@@ -1,0 +1,131 @@
+﻿@using ErasmusPlus.Common.SharedModels
+@model ErasmusPlus.Models.ViewModels.Coordinator.StudentAgreementsViewModel
+@{
+    ViewBag.Title = "Agreements";
+}
+<div class="row">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3> Student agreements </h3>
+        </div>
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Student</th>
+                    <th>Source university name</th>
+                    <th>Target university name</th>
+                    <th>Date from</th>
+                    <th>Date to</th>
+                    <th>Agreement state</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.StudentAgreements)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.ErasmusUser.FullName</td>
+                        <td>@item.SourceUniversity.Name</td>
+                        <td>@item.TargetUniversity.Name</td>
+                        <td>@item.StartDate.ToString("yyyy-MM-dd")</td>
+                        <td>@item.EndDate.ToString("yyyy-MM-dd")</td>
+                        <td>@(((AgreementState)item.State).ToString())</td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-default">Actions</button>
+                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li>@Html.ActionLink("Details", "StudentAgreementDetails", "Coordinator", new { id = item.Id }, null)</li>
+                                    @if (item.State == AgreementState.Submitted)
+    {
+                                <li>@Html.ActionLink("Change to pending", "Pending", "Coordinator", new { id = item.Id }, null)</li>
+                                <li><a href="#" class="decline" data-id="@item.Id">Decline</a></li>
+                                <li>@Html.ActionLink("Change to canceled", "Canceled", "Coordinator", new { id = item.Id }, null)</li>
+}
+
+                                    @if (item.State == AgreementState.Pending)
+    {
+                                <li>@Html.ActionLink("Change to sent", "Sent", "Coordinator", new { id = item.Id }, null)</li>
+                                <li><a href="#" class="decline">Decline</a></li>
+                                <li>@Html.ActionLink("Change to canceled", "Canceled", "Coordinator", new { id = item.Id }, null)</li>
+}
+
+                                    @if (item.State == AgreementState.Sent)
+    {
+                                <li><a href="#" class="decline">Decline</a></li>
+                                <li>@Html.ActionLink("Change to canceled", "Canceled", "Coordinator", new { id = item.Id }, null)</li>
+}
+                                @*@if (item.State == AgreementState.Sent)
+        {
+                                    <li>@Html.ActionLink("Change to rved", "Received", "Coordinator", new { id = item.Id }, null)</li>
+    }
+
+                                        @if (item.State == AgreementState.Received)
+        {
+                                    <li>@Html.ActionLink("Change to approved", "Approved", "Coordinator", new { id = item.Id }, null)</li>
+    }
+
+                                        @if (item.State == AgreementState.Approved)
+                                        {
+                                    <li>@Html.ActionLink("Change to active", "Active", "Coordinator", new { id = item.Id }, null)</li>
+                                    <li><a href="#" class="decline">Decline</a></li>
+                                    <li>@Html.ActionLink("Change to canceled", "Canceled", "Coordinator", new { id = item.Id }, null)</li>
+                                        }*@
+                                </ul>
+                            </div>
+                                
+                                
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div id="modalResult" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Provide a reason for declining</h4>
+            </div>
+            <div id="modalBody" class="modal-body">
+                @using (Html.BeginForm("Decline", "Coordinator", FormMethod.Post, new {@id = "declineForm"}))
+                {
+                    @Html.Hidden("id", 0, new {@id = "argreementId"});
+                    <div class="form-group">
+                        <label>Reason</label>
+                        @Html.TextArea("reason", new { @class = "form-control", rows=3 })
+                    </div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" id="declineButton" data-dismiss="modal">Decline</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ViewSpecificJavascript { 
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".decline").on("click", function() {
+            var agreementId = $(this).attr("data-id");
+            $("#argreementId").val(agreementId);
+            $("#modalResult").modal("show");
+        });
+
+        $("#declineButton").on("click", function() {
+            $("#declineForm").submit();
+        });
+    });
+</script>
+}

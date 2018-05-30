@@ -1,0 +1,45 @@
+﻿@using ErasmusPlus.Common.SharedModels
+@model List<ErasmusPlus.Models.ViewModels.Student.MyAgreementsViewModel>
+@{
+    ViewBag.Title = "My agreements";
+}
+<div class="row">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3> Agreements </h3>
+        </div>
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>From university</th>
+                    <th>Date</th>
+                    <th>To university</th>
+                    <th>Date</th>
+                    <th>Agreement state</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var agr in Model)
+                {
+                    <tr>
+                        <td>@agr.UniversityFromName</td>
+                        <td>@agr.StartDate.ToString("yyyy-MM-dd")</td>
+                        <td>@agr.UniversityToName</td>
+                        <td>@agr.EndDate.ToString("yyyy-MM-dd")</td>
+                        <th>@Enum.GetName(typeof(AgreementState), agr.State)</th>
+                        <th>@if (agr.State == AgreementState.New)
+                            {
+                                @Html.ActionLink("Edit", "EditAgreement", "Student", new {id = agr.Id}, new {@class = "btn btn-primary"})
+                                @Html.ActionLink("Submit", "SubmitAgreement", "Student", new {id = agr.Id}, new {@class = "btn btn-success"})
+                                @Html.ActionLink("Delete", "DeleteAgreement", "Student", new {id = agr.Id}, new {@class = "btn btn-warning"})
+                            }
+                        </th>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

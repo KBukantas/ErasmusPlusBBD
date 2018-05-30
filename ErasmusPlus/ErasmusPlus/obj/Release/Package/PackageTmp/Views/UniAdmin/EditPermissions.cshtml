@@ -1,0 +1,191 @@
+﻿@using ErasmusPlus.Models.ViewModels
+@model ErasmusPlus.Models.ViewModels.Admin.UserPermissionsViewModel
+@{
+    ViewBag.Title = "User permissions";
+}
+
+@* Use this input to change page context in diferent views *@
+<input type="hidden" style="display: none" id="CurrentPage" value="NewFaculty" />
+
+<div class="box box-default">
+    <div class="box-body">
+        <div>@Model.Email - @Model.Role</div>
+    </div>
+</div>
+
+<div class="box box-default">
+    <div class="box-body">
+        <form class="form-horizontal">
+        <div class="form-group">
+            <div class="col-sm-2 control-label">
+                <input type="button" id="addButton" class="btn btn-default" value="Add"/>
+            </div>
+            <div class="col-sm-10">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">
+                <label>University</label>
+            </div>
+            <div class="col-sm-10">
+                @Html.DropDownList("UniversityList", Model.UniversitiesList, new {@id = "UniversityDataList", @class = "form-control"})
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 control-label">
+                <label>Faculty</label>
+            </div>
+            <div class="col-sm-10">
+                <select id="faculties" class="form-control"></select>
+            </div>
+        </div>
+        </form>
+    </div>
+</div>
+
+<div class="box box-default">
+    <div class="box-body">
+        <div>Permissions</div>
+        @using (Html.BeginForm("EditPermissions", "UniAdmin", FormMethod.Post))
+        {
+            @Html.HiddenFor(x => x.UserId)
+            <div class="col-sm-12">
+                <table id="permissionsTable" class="table table-bordered table-hover" role="grid">
+                    <thead>
+                        <tr role="row">
+                            <th tabindex="0" rowspan="1" colspan="1">University</th>
+                            <th tabindex="0" rowspan="1" colspan="1">Faculty</th>
+                            <th tabindex="0" rowspan="1" colspan="1">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        @for (int i = 0; i < Model.Permissions.Count; i++)
+                        {
+                            <tr role="row" class="permission">
+                                <td>
+                                    <input type="hidden" class="uniId" name="Permissions[@i].UniversityId" value="@Model.Permissions[i].UniversityId"/>
+                                    <input type="text" class="uniName form-control" name="Permissions[@i].UniversityName" value="@Model.Permissions[i].UniversityName"/>
+                                </td>
+                                <td>
+                                    <input type="hidden" class="facultyId" name="Permissions[@i].FacultyId" value="@Model.Permissions[i].FacultyId"/>
+                                    <input type="text" class="facultyName form-control" name="Permissions[@i].FacultyName" value="@Model.Permissions[i].FacultyName"/>
+                                </td>
+                                <td><input type="button" class="remove btn btn-default" value="Remove"/></td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th rowspan="1" colspan="1"><input type="submit" class="btn btn-default" value="Save" /></th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        }
+    </div>
+</div>
+
+@section ViewSpecificJavascript
+{
+    <script type="text/javascript">
+        function disableSelectInput(target) {
+            $(target).select2("val", "");
+            $(target).attr('disabled', true);
+        }
+
+        function RecalculateIds() {
+            $(".permission").each(function(index) {
+                $(this).find(".uniId").attr("Name", "Permissions[" + index + "].UniversityId");
+                $(this).find(".uniName").attr("Name", "Permissions[" + index + "].UniversityName");
+                $(this).find(".facultyId").attr("Name", "Permissions[" + index + "].FacultyId");
+                $(this).find(".facultyName").attr("Name", "Permissions[" + index + "].FacultyName");
+            });
+
+            $(".remove").off("click");
+
+            $(".remove").on("click", function () {
+                console.log(this);
+                console.log($(this));
+                console.log($(this).closest('.permission'));
+                $(this).closest('.permission').remove();
+                RecalculateIds();
+            });
+        }
+
+        function enableSelectInput(target) {
+            $(target).attr('disabled', false);
+        }
+
+        $(document).ready(function () {
+            $("#addButton").on("click", function () {
+                var uniId = $("#UniversityDataList").val();
+                var uniName = $("#UniversityDataList option:selected").text();
+                var facultyId = $("#faculties").val();
+                var facultyName = $("#faculties option:selected").text();
+                if (facultyId == "null") {
+                    facultyName = "Not selected";
+                }
+
+                $("#tableBody").append(
+                    '<tr role="row" class="permission"><td><input type="hidden" class="uniId" name="Permissions[].UniversityId" value="' +
+                    uniId +
+                    '"/><input type="text" class="uniName form-control" name="Permissions[].UniversityName" value="' +
+                    uniName +
+                    '"/></td><td><input type="hidden" class="facultyId" name="Permissions[].FacultyId" value="' +
+                    facultyId +
+                    '"/><input type="text" class="facultyName form-control" name="Permissions[].FacultyName" value="' +
+                    facultyName +
+                    '"/></td><td><input type="button" class="remove btn btn-default" value="Remove"/></td></tr>');
+                RecalculateIds();
+            });
+
+            $(".remove").on("click", function () {
+                console.log(this);
+                console.log($(this));
+                console.log($(this).closest('.permission'));
+                $(this).closest('.permission').remove();
+                RecalculateIds();
+            });
+
+            $.getJSON("/admin/GetFacultyDataByUniId/?universityId=" + $("#UniversityDataList").val(), function (data) {
+                $("#faculties").val(null).trigger("change");
+                $("#faculties").empty();
+                var dropdownData = [];
+                $.each(data, function (key, val) {
+                    dropdownData.push({ id: val.Key, text: val.Value });
+                });
+
+                var defaultOption = new Option("Select faculty", null, true, true);
+                $("#faculties").append(defaultOption).trigger('change');
+                $("#faculties").select2({ data: dropdownData });
+
+                if (dropdownData.length == 0) {
+                    disableSelectInput("#faculties");
+                } else {
+                    enableSelectInput("#faculties");
+                }
+            });
+
+            $("#UniversityDataList").on("select2:select", function (selected) {
+                $.getJSON("/admin/GetFacultyDataByUniId/?universityId=" + selected.params.data.id, function (data) {
+                    $("#faculties").val(null).trigger("change");
+                    $("#faculties").empty();
+                    var dropdownData = [];
+                    $.each(data, function (key, val) {
+                        dropdownData.push({ id: val.Key, text: val.Value });
+                    });
+
+                    var defaultOption = new Option("Select faculty", null, true, true);
+                    $("#faculties").append(defaultOption).trigger('change');
+                    $("#faculties").select2({ data: dropdownData });
+
+                    if (dropdownData.length == 0) {
+                        disableSelectInput("#faculties");
+                    } else {
+                        enableSelectInput("#faculties");
+                    }
+                });
+            });
+        });
+    </script>
+}

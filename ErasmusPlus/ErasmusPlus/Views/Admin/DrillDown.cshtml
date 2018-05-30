@@ -1,0 +1,95 @@
+﻿@model ErasmusPlus.Models.ViewModels.DrillDownViewModel
+@{
+    ViewBag.Title = "Overview";
+}
+<div class="row">
+            @foreach (var country in Model.Countries)
+            {
+                <div class="col-md-12">
+                    <div class="box box-default collapsed-box">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">@country.CountryName</h3>
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body" style="display: none;">
+                            @foreach (var university in country.Universities)
+                            {
+                                <div class="box box-default collapsed-box">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">@university.UniversityName</h3>
+                                        <div class="box-tools pull-right">
+                                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="box-body" style="display: none;">
+                                        <div class="box box-default collapsed-box">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Students IN: @university.CountIn</h3>
+
+                                                <div class="box-tools pull-right">
+                                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="box-body" style="display: none;">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>First name</th>
+                                                        <th>Last name</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    @foreach (var studentsIn in university.StudentsIn)
+                                                    {
+                                                        <tr>
+                                                            <td>@studentsIn.FirstName</td>
+                                                            <td>@studentsIn.LastName</td>
+                                                        </tr>
+                                                    }
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="box box-default collapsed-box">
+                                            <div class="box-header with-border">
+                                                <h3 class="box-title">Students OUT: @university.CountOut</h3>
+                                                <div class="box-tools pull-right">
+                                                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                                                        <i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="box-body" style="display: none;">
+                                                <table class="table table-striped">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>First name</th>
+                                                            <th>Last name</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        @foreach (var studentsOut in university.StudentsOut)
+                                                        {
+                                                            <tr>
+                                                                <td>@studentsOut.FirstName</td>
+                                                                <td>@studentsOut.LastName</td>
+                                                            </tr>
+                                                        }
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+</div>

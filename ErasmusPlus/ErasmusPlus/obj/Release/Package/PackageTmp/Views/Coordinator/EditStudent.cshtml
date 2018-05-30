@@ -1,0 +1,102 @@
+﻿@model ErasmusPlus.Models.ViewModels.Admin.UserViewModel
+@{
+    ViewBag.Title = "Edit user details";
+}
+
+@if (Model == null)
+{
+    <div class="row">
+        The requested user could not be found, make sure the user exists.
+    </div>
+}
+else
+{
+    <div class="row">
+        @using (Html.BeginForm("EditStudent", "Coordinator", FormMethod.Post))
+        {
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3> Edit user details </h3>
+                </div>
+                <div class="box-body">
+                    @Html.HiddenFor(x => x.UserId)
+                    @Html.ValidationMessageFor(x => x.UserId)
+                    <div class="col-xs-2 form-group">
+                        @Html.LabelFor(x => x.FirstName)
+                    </div>
+                    <div class="col-xs-10 form-group">
+                        @Html.TextBoxFor(x => x.FirstName, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(x => x.FirstName)
+                    </div>
+
+                    <div class="col-xs-2 form-group">
+                        @Html.LabelFor(x => x.LastName)
+                    </div>
+                    <div class="col-xs-10 form-group">
+                        @Html.TextBoxFor(x => x.LastName, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(x => x.LastName)
+                    </div>
+
+                    <div class="col-xs-2 form-group">
+                        @Html.LabelFor(x => x.Email)
+                    </div>
+                    <div class="col-xs-10 form-group">
+                        @Html.TextBoxFor(x => x.Email, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(x => x.Email)
+                    </div>
+                    <div class="col-xs-2 form-group">
+                        @Html.LabelFor(x => x.Telephone)
+                    </div>
+                    <div class="col-xs-10 form-group">
+                        @Html.TextBoxFor(x => x.Telephone, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(x => x.Telephone)
+                    </div>
+
+                    <div class="col-xs-2 form-group">
+                        @Html.LabelFor(x => x.Username)
+                    </div>
+                    <div class="col-xs-10 form-group">
+                        @Html.TextBoxFor(x => x.Username, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(x => x.Username)
+                    </div>
+
+                    <div class="col-xs-2 form-group">
+                        @Html.LabelFor(x => x.Universities)
+                    </div>
+                    <div class="col-xs-10 form-group">
+                        @Html.DropDownListFor(x => x.UniversityId, Model.Universities, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(x => x.Username)
+                    </div>
+
+                    <div class="col-xs-2 form-group">
+                        @Html.LabelFor(x => x.PersonalCode)
+                    </div>
+                    <div class="col-xs-10 form-group">
+                        @Html.TextBoxFor(x => x.PersonalCode, new {@class = "form-control"})
+                        @Html.ValidationMessageFor(x => x.PersonalCode)
+                    </div>
+
+                    <div class="col-xs-2 form-group">
+                        @Html.LabelFor(x => x.Birthday)
+                    </div>
+                    <div class="col-xs-10 form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </div>
+                            @Html.TextBoxFor(model => model.Birthday, new {@type = "text", @Value = Model.Birthday.ToString("yyyy-MM-dd"), @class = "form-control datepicker", data_inputmask = "'alias' : 'yyyy-mm-dd'", data_mask = ""})
+                            @Html.ValidationMessageFor(x => x.Birthday)
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" class="btn btn-default" value="Save" />
+            </div>
+        }
+    </div>
+}
+
+@section ViewSpecificJavascript
+{
+    <script type="text/javascript">
+    </script>
+}

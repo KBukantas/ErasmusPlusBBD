@@ -1,0 +1,62 @@
+﻿@model ErasmusPlus.Models.ViewModels.Admin.NewStudySubjectViewModel
+@{
+    ViewBag.Title = "New study subject";
+}
+
+@* Use this input to change page context in diferent views *@
+<input type="hidden" style="display: none" id="CurrentPage" value="NewStudySubject" />
+
+<div class="box box-default">
+    <div class="box-body">
+        @using (Html.BeginForm("NewStudySubject", "Admin", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label>Name</label>
+                </div>
+                <div class="col-xs-9 form-group">
+                    @Html.EditorFor(x => x.Name)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label>Credits</label>
+                </div>
+                <div class="col-xs-9 form-group">
+                    @Html.EditorFor(x => x.Credits)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label>Evaluation</label>
+                </div>
+                <div class="col-xs-9 form-group">
+                    @Html.EditorFor(x => x.Evaluation)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label>Language</label>
+                </div>
+                <div class="col-xs-9 form-group">
+                    @Html.EditorFor(x => x.Language)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label>Semester</label>
+                </div>
+                <div class="col-xs-9 form-group">
+                    @Html.EditorFor(x => x.Semester)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-offset-9">
+                </div>
+                <div class="col-xs-3 ">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

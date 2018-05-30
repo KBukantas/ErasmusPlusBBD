@@ -1,0 +1,63 @@
+﻿@model ErasmusPlus.Models.ViewModels.Admin.NewStudySubjectViewModel
+@{
+    ViewBag.Title = "Edit study subject";
+}
+
+@* Use this input to change page context in diferent views *@
+<input type="hidden" style="display: none" id="CurrentPage" value="NewStudySubject" />
+
+<div class="box box-default">
+    <div class="box-body">
+        @using (Html.BeginForm("NewStudySubject", "UniAdmin", FormMethod.Post))
+        {
+            @Html.HiddenFor(x => x.Id)
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label>Name</label>
+                </div>
+                <div class="col-xs-9 form-group">
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label>Credits</label>
+                </div>
+                <div class="col-xs-9 form-group">
+                    @Html.TextBoxFor(x => x.Credits, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label>Evaluation</label>
+                </div>
+                <div class="col-xs-9 form-group">
+                    @Html.TextBoxFor(x => x.Evaluation, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label>Language</label>
+                </div>
+                <div class="col-xs-9 form-group">
+                    @Html.TextBoxFor(x => x.Language, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label>Semester</label>
+                </div>
+                <div class="col-xs-9 form-group">
+                    @Html.TextBoxFor(x => x.Semester, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-offset-9">
+                </div>
+                <div class="col-xs-3 ">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

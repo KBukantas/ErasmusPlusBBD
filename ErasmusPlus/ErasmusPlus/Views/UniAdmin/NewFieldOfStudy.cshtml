@@ -1,0 +1,46 @@
+﻿@model ErasmusPlus.Models.ViewModels.Admin.NewFieldOfStudyViewModel
+@{
+    ViewBag.Title = "NewFieldOfStudy";
+}
+
+@* Use this input to change page context in diferent views *@
+<input type="hidden" style="display: none" id="CurrentPage" value="NewFieldOfStudy" />
+
+<div class="box box-default">
+    <div class="box-body">
+        @using (Html.BeginForm("NewFieldOfStudy", "UniAdmin", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label>Name</label>
+                </div>
+                <div class="col-xs-9 form-group">
+                    @Html.TextBoxFor(x => x.Name , new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label>Degree</label>
+                </div>
+                <div class="col-xs-9 form-group">
+                    @Html.EnumDropDownListFor(x => x.Degree)
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-3 form-group">
+                    <label>Study subjects</label>
+                </div>
+                <div class="col-xs-9 form-group">
+                    @Html.ListBoxFor(x => x.SelectedStudySubjects, Model.StudySubjects, new { id = "studySubjects" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-offset-9">
+                </div>
+                <div class="col-xs-3 ">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+</div>

@@ -1,0 +1,130 @@
+﻿@using ErasmusPlus.Common.SharedModels
+@model ErasmusPlus.Models.ViewModels.Coordinator.StudentAgreementDetailsView
+@{
+    ViewBag.Title = "StudentAgreementDetails";
+}
+
+<div class="row">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3> @Model.Student.FullName </h3>
+        </div>
+        <div class="box-body">
+            <div class="row">
+                <div class="col-xs-2">Date from</div>
+                <div class="col-xs-4">@Model.StartDate.ToString("yyyy-MM-dd")</div>
+                <div class="col-xs-2">Date to</div>
+                <div class="col-xs-4">@Model.EndDate.ToString("yyyy-MM-dd")</div>
+            </div>
+            <div class="row ">
+                <div class="col-xs-6">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-aqua">
+                            <i class="ion fa fa-university"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Source university</span>
+                            <span class="info-box-more">@Model.SourceUniversity.Name</span>
+                            <span class="info-box-more">@Model.SourceUniversity.Country</span>
+                            <span class="info-box-more">@Model.SourceUniversity.Address</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-green">
+                            <i class="ion fa fa-university"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Destination university</span>
+                            <span class="info-box-more">@Model.TargetUniversity.Name</span>
+                            <span class="info-box-more">@Model.TargetUniversity.Country</span>
+                            <span class="info-box-more">@Model.TargetUniversity.Address</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row ">
+                <div class="col-xs-6">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-aqua">
+                            <i class="ion fa fa-briefcase"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Faculty: @Model.SourceFaculty.Name</span>
+                            <span class="info-box-more">Field of study: @Model.SourceFieldOfStudy.Name</span>
+                            <span class="info-box-more">@(((Degree)Model.SourceFieldOfStudy.Degree).ToString())</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-green">
+                            <i class="ion fa fa-briefcase"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Faculty: @Model.TargetFaculty.Name</span>
+                            <span class="info-box-more">Field of study: @Model.TargetFieldOfStudy.Name</span>
+                            <span class="info-box-more">@(((Degree)Model.TargetFieldOfStudy.Degree).ToString())</span>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="col-xs-6">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-yellow">
+                            <i class="ion fa fa-angle-down"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-content">
+                                StudySubjects:
+                                @foreach (var item in Model.SourceStudySubjects)
+                                {
+                                    <span class="info-box-more">Study Subject: @item.Name</span>
+                                    <span class="info-box-more">Credits: @item.Credits</span>
+                                }
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            
+            <div class="col-xs-6">
+                <div class="info-box">
+                    <span class="info-box-icon bg-yellow">
+                        <i class="ion fa fa-angle-down"></i>
+                    </span>
+                    <div class="info-box-content">
+                        <span class="info-box-content">
+                            StudySubjects:
+                            @foreach (var item in Model.TargetStudySubjects)
+                            {
+                                <span class="info-box-more">Study Subject: @item.Name</span>
+                                <span class="info-box-more">Credits: @item.Credits</span>
+                            }
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+            <div class="row">
+                <div class="col-xs-4">
+                    <div class="info-box">
+                        <span class="info-box-icon bg-gray">
+                            <i class="ion fa fa-hourglass-1"></i>
+                        </span>
+                        <div class="info-box-content">
+                            <span class="info-box-text">Agreement state</span>
+                            <span class="info-box-number">@Model.State</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4"></div>
+                <div class="col-xs-4"></div>
+            </div>
+        </div>
+    </div>
+</div>

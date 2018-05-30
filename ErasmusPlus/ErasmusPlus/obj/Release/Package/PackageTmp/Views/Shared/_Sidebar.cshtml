@@ -1,0 +1,358 @@
+﻿@using ErasmusPlus.Common.Authorization
+@using ErasmusPlus.Models.Extensions
+@using WebHelpers.Mvc5
+<aside class="main-sidebar">
+    <section class="sidebar">
+        @* BEGIN Search *@
+        <form action="#" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search...">
+                <span class="input-group-btn">
+                    <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </span>
+            </div>
+        </form>
+        @* END Search *@
+        @* BEGIN Menu *@
+        <ul class="sidebar-menu" data-widget="tree">
+            @if (User.Identity.IsAuthenticated)
+            {
+                if (User.IsInRole(UserRoles.Administrator))
+                {
+            @* ADMIN MENU *@
+                    <li class="header">Menu</li>
+                    <li class="@Url.IsLinkActive("Index", "Home")">
+                        <a href="@Url.Action("Index", "Home")"><i class="fa fa-home"></i> <span>Home</span></a>
+                    </li>
+                    <li class="@Url.IsLinkActive("DrillDown", "Admin")">
+                        <a href="@Url.Action("DrillDown", "Admin")"><i class="fa fa-link"></i> <span>Overview</span></a>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-address-book"></i>
+                            <span>User management</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="@Url.IsLinkActive("UniversityAdmins", "Admin")">
+                                <a href="@Url.Action("UniversityAdmins", "Admin")"><i class="fa fa-list"></i> <span>University admins</span></a>
+                            </li>
+                            <li class="@Url.IsLinkActive("NewUniversityAdmin", "Admin")">
+                                <a href="@Url.Action("NewUniversityAdmin", "Admin")"><i class="fa fa-list"></i> <span>New university admin</span></a>
+                            </li>
+                            @*<li class="@Url.IsLinkActive("Students", "Coordinator")">
+                <a href="@Url.Action("Students", "Coordinator")"><i class="fa fa-list"></i> <span>Students</span></a>
+            </li>
+
+        <li class="@Url.IsLinkActive("NewStudent", "Coordinator")">
+            <a href="@Url.Action("NewStudent", "Admin")"><i class="fa fa-list"></i> <span>New student</span></a>
+        </li>
+        <li class="@Url.IsLinkActive("ForeighnAndCoordinator", "Admin")">
+            <a href="@Url.Action("ForeighnAndCoordinator", "Admin")"><i class="fa fa-list"></i> <span>Foreigns and coordinators</span></a>
+        </li>
+        <li class="@Url.IsLinkActive("NewCoordinator", "Admin")">
+            <a href="@Url.Action("NewCoordinator", "Admin")"><i class="fa fa-list"></i> <span>New coordinator</span></a>
+        </li>
+        <li class="@Url.IsLinkActive("NewForeign", "Admin")">
+            <a href="@Url.Action("NewForeign", "Admin")"><i class="fa fa-list"></i> <span>New foreign</span></a>
+        </li>
+                    <li class="@Url.IsLinkActive("UserPermissions", "Admin")">
+                        <a href="@Url.Action("UserPermissions", "Admin")"><i class="fa fa-list"></i> <span>User permissions</span></a>
+                    </li>*@
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-address-book"></i>
+                            <span>Universities</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li class="@Url.IsLinkActive("Universities", "Admin")">
+                                <a href="@Url.Action("Universities", "Admin")"><i class="fa fa-list"></i> <span>Universities</span></a>
+                            </li>
+                            @*
+                <li class="@Url.IsLinkActive("NewUniversity", "Admin")">
+                    <a href="@Url.Action("NewUniversity", "Admin")"><i class="fa fa-university"></i> <span>New university</span></a>
+                </li>
+                <li class="@Url.IsLinkActive("UniversityAgreements", "Admin")">
+                    <a href="@Url.Action("UniversityAgreements", "Admin")"><i class="fa fa-university"></i> <span>University agreements</span></a>
+                </li>
+                <li class="@Url.IsLinkActive("UniversityAgreement", "Admin")">
+                    <a href="@Url.Action("UniversityAgreement", "Admin")"><i class="fa fa-university"></i> <span>New university agreement</span></a>
+                </li>
+                    *@
+                        </ul>
+                    </li>
+            @*
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-address-book"></i>
+                    <span>Faculties</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="@Url.IsLinkActive("Faculties", "Admin")">
+                        <a href="@Url.Action("Faculties", "Admin")"><i class="fa fa-link"></i> <span>Faculties</span></a>
+                    </li>
+                    <li class="@Url.IsLinkActive("NewFaculty", "Admin")">
+                        <a href="@Url.Action("NewFaculty", "Admin")"><i class="fa fa-link"></i> <span>New faculty</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-map"></i>
+                    <span>Fields of study</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="@Url.IsLinkActive("FieldsOfStudy", "Admin")">
+                        <a href="@Url.Action("FieldsOfStudies", "Admin")"><i class="fa fa-link"></i> <span>Fields of studies</span></a>
+                    </li>
+                    <li class="@Url.IsLinkActive("NewFieldOfStudy", "Admin")">
+                        <a href="@Url.Action("NewFieldOfStudy", "Admin")"><i class="fa fa-link"></i> <span>New field of study</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-address-book"></i>
+                    <span>Study subjects</span>
+                    <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="@Url.IsLinkActive("FieldsOfStudy", "Admin")">
+                        <a href="@Url.Action("StudySubjects", "Admin")"><i class="fa fa-link"></i> <span>Study subjects</span></a>
+                    </li>
+                    <li class="@Url.IsLinkActive("NewStudySubject", "Admin")">
+                        <a href="@Url.Action("NewStudySubject", "Admin")"><i class="fa fa-link"></i> <span>New study subject</span></a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="@Url.IsLinkActive("StudyAgreements", "Home")">
+            <a href="@Url.Action("StudyAgreements", "Home")"><i class="fa fa-exchange"></i> <span>Study agreements</span></a>
+        </li>*@
+                }
+                else if (User.IsInRole(UserRoles.Student))
+                {
+        @* STUDENT MENU *@
+                    <li class="header">Menu</li>
+                    <li class="@Url.IsLinkActive("Index", "Home")">
+                        <a href="@Url.Action("Index", "Home")"><i class="fa fa-link"></i> <span>Home</span></a>
+                    </li>
+
+                    <li class="@Url.IsLinkActive("MyAgreements", "Student")">
+                        <a href="@Url.Action("MyAgreements", "Student")"><i class="fa fa-link"></i> <span>My agreements</span></a>
+                    </li>
+
+                    <li class="@Url.IsLinkActive("Agreement", "Student")">
+                        <a href="@Url.Action("Agreement", "Student")"><i class="fa fa-link"></i> <span>New agreement</span></a>
+                    </li>
+
+                    <li class="@Url.IsLinkActive("PersonalInfo", "Student")">
+                        <a href="@Url.Action("PersonalInfo", "Student")"><i class="fa fa-link"></i> <span>Personal info</span></a>
+                    </li>
+                }
+                else if (User.IsInRole(UserRoles.Coordinator))
+                {
+        @* COORDINATOR MENU *@
+                    <li class="header">Menu</li>
+                    <li class="@Url.IsLinkActive("Index", "Home")">
+                        <a href="@Url.Action("Index", "Home")"><i class="fa fa-link"></i> <span>Home</span></a>
+                    </li>
+
+                    <li class="@Url.IsLinkActive("Agreements", "Coordinator")">
+                        <a href="@Url.Action("Agreements", "Coordinator")"><i class="fa fa-newspaper-o"></i> <span>Agreements</span></a>
+                    </li>
+
+                    <li class="@Url.IsLinkActive("IncomingAgreements", "Coordinator")">
+                        <a href="@Url.Action("IncomingAgreements", "Coordinator")"><i class="fa fa-link"></i> <span>Agreements incoming</span></a>
+                    </li>
+                    <li class="@Url.IsLinkActive("OutgoingAgreements", "Coordinator")">
+                        <a href="@Url.Action("OutgoingAgreements", "Coordinator")"><i class="fa fa-link"></i> <span>Agreements outgoing</span></a>
+                    </li>
+
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-address-book"></i>
+                            <span>User management</span>
+                            <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                        </a>
+                        <ul class="treeview-menu">
+
+                            <li class="@Url.IsLinkActive("Students", "Coordinator")">
+                                <a href="@Url.Action("Students", "Coordinator")"><i class="fa fa-list"></i> <span>Students</span></a>
+                            </li>
+                            <li class="@Url.IsLinkActive("NewStudent", "Coordinator")">
+                                <a href="@Url.Action("NewStudent", "Coordinator")"><i class="fa fa-list"></i> <span>New student</span></a>
+                            </li>
+                            @*
+            <li class="@Url.IsLinkActive("UserPermissions", "Admin")">
+                <a href="@Url.Action("UserPermissions", "Admin")"><i class="fa fa-list"></i> <span>User permissions</span></a>
+            </li>*@
+                        </ul>
+                    </li>
+                    <li class="@Url.IsLinkActive("PersonalInfo", "Coordinator")">
+                        <a href="@Url.Action("PersonalInfo", "Coordinator")"><i class="fa fa-link"></i> <span>Personal info</span></a>
+                    </li>
+
+        @*<li class="@Url.IsLinkActive("AgreementsIncoming", "Home")">
+        <a href="@Url.Action("AgreementsIncoming", "Home")"><i class="fa fa-link"></i> <span>Agreements incoming</span></a>
+    </li>
+
+    <li class="@Url.IsLinkActive("Messages", "Home")">
+        <a href="@Url.Action("Messages", "Home")"><i class="fa fa-link"></i> <span>Messages</span></a>
+    </li>
+
+    <li class="@Url.IsLinkActive("PersonalInfo", "Home")">
+        <a href="@Url.Action("PersonalInfo", "Home")"><i class="fa fa-link"></i> <span>Personal info</span></a>
+    </li>*@
+                }
+                else if (User.IsInRole(UserRoles.Foreign))
+                {
+        @* FOREIGNIN MENU *@
+                    <li class="header">Menu</li>
+                    <li class="@Url.IsLinkActive("Index", "Home")">
+                        <a href="@Url.Action("Index", "Home")"><i class="fa fa-link"></i> <span>Home</span></a>
+                    </li>
+
+                    <li class="@Url.IsLinkActive("Agreements", "Foreign")">
+                        <a href="@Url.Action("Agreements", "Foreign")"><i class="fa fa-link"></i> <span>Agreements</span></a>
+                    </li>
+
+                    <li class="@Url.IsLinkActive("PersonalInfo", "Foreign")">
+                        <a href="@Url.Action("PersonalInfo", "Foreign")"><i class="fa fa-link"></i> <span>Personal info</span></a>
+                    </li>
+                }
+
+                else if (User.IsInRole(UserRoles.UniversityAdmin))
+                {
+        @* UNIADMIN MENU *@
+
+                    <li class="header">Menu</li>
+                    <li class="@Url.IsLinkActive("Index", "Home")">
+                        <a href="@Url.Action("Index", "Home")"><i class="fa fa-link"></i> <span>Home</span></a>
+                    </li>
+
+                    if (@User.Identity.GetUserUniversityId() == "")
+                    {
+                        <li class="@Url.IsLinkActive("NewUniversity", "UniAdmin")">
+                            <a href="@Url.Action("NewUniversity", "UniAdmin")"><i class="fa fa-university"></i> <span>New university</span></a>
+                        </li>
+                    }
+                    else
+                    {
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-address-book"></i>
+                                <span>User management</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="@Url.IsLinkActive("ForeighnAndCoordinator", "UniAdmin")">
+                                    <a href="@Url.Action("ForeighnAndCoordinator", "UniAdmin")"><i class="fa fa-list"></i> <span>Foreigns and coordinators</span></a>
+                                </li>
+                                <li class="@Url.IsLinkActive("NewCoordinator", "UniAdmin")">
+                                    <a href="@Url.Action("NewCoordinator", "UniAdmin")"><i class="fa fa-list"></i> <span>New coordinator</span></a>
+                                </li>
+                                <li class="@Url.IsLinkActive("NewForeign", "UniAdmin")">
+                                    <a href="@Url.Action("NewForeign", "UniAdmin")"><i class="fa fa-list"></i> <span>New foreign</span></a>
+                                </li>
+                                @*
+            <li class="@Url.IsLinkActive("UserPermissions", "UniAdmin")">
+                <a href="@Url.Action("UserPermissions", "UniAdmin")"><i class="fa fa-list"></i> <span>User permissions</span></a>
+            </li>*@
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-address-book"></i>
+                                <span>Universities</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="@Url.IsLinkActive("Universities", "UniAdmin")">
+                                    <a href="@Url.Action("Universities", "UniAdmin")"><i class="fa fa-list"></i> <span>Universities</span></a>
+                                </li>
+
+                                <li class="@Url.IsLinkActive("UniversityAgreements", "UniAdmin")">
+                                    <a href="@Url.Action("UniversityAgreements", "UniAdmin")"><i class="fa fa-university"></i> <span>University agreements</span></a>
+                                </li>
+                                <li class="@Url.IsLinkActive("UniversityAgreement", "UniAdmin")">
+                                    <a href="@Url.Action("UniversityAgreement", "UniAdmin")"><i class="fa fa-university"></i> <span>New university agreement</span></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-address-book"></i>
+                                <span>Faculties</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="@Url.IsLinkActive("Faculties", "UniAdmin")">
+                                    <a href="@Url.Action("Faculties", "UniAdmin")"><i class="fa fa-link"></i> <span>Faculties</span></a>
+                                </li>
+                                <li class="@Url.IsLinkActive("NewFaculty", "UniAdmin")">
+                                    <a href="@Url.Action("NewFaculty", "UniAdmin")"><i class="fa fa-link"></i> <span>New faculty</span></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-map"></i>
+                                <span>Fields of study</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="@Url.IsLinkActive("FieldsOfStudy", "UniAdmin")">
+                                    <a href="@Url.Action("FieldsOfStudies", "UniAdmin")"><i class="fa fa-link"></i> <span>Fields of studies</span></a>
+                                </li>
+                                <li class="@Url.IsLinkActive("NewFieldOfStudy", "UniAdmin")">
+                                    <a href="@Url.Action("NewFieldOfStudy", "UniAdmin")"><i class="fa fa-link"></i> <span>New field of study</span></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-address-book"></i>
+                                <span>Study subjects</span>
+                                <span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li class="@Url.IsLinkActive("FieldsOfStudy", "UniAdmin")">
+                                    <a href="@Url.Action("StudySubjects", "UniAdmin")"><i class="fa fa-link"></i> <span>Study subjects</span></a>
+                                </li>
+                                <li class="@Url.IsLinkActive("NewStudySubject", "UniAdmin")">
+                                    <a href="@Url.Action("NewStudySubject", "UniAdmin")"><i class="fa fa-link"></i> <span>New study subject</span></a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="@Url.IsLinkActive("PersonalInfo", "UniAdmin")">
+                            <a href="@Url.Action("PersonalInfo", "UniAdmin")"><i class="fa fa-link"></i> <span>Personal info</span></a>
+                        </li>
+                    }
+                }
+            }
+            else
+            {
+                <li class="@Url.IsLinkActive("Index", "Home")">
+                    <a href="@Url.Action("Index", "Home")"><i class="fa fa-link"></i> <span>Home</span></a>
+                </li>
+            }
+        </ul>
+        @* END Menu *@
+    </section>
+</aside>

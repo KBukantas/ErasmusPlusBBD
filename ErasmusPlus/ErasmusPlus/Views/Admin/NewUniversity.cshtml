@@ -1,0 +1,69 @@
+﻿@model ErasmusPlus.Models.ViewModels.Admin.NewUniversityViewModel
+@{
+    ViewBag.Title = "New university";
+}
+
+@* Use this input to change page context in diferent views *@
+<input type="hidden" style="display: none" id="CurrentPage" value="NewUniversity" />
+
+<div class="box box-default">
+    <div class="box-body">
+        @using (Html.BeginForm("NewUniversity", "Admin", FormMethod.Post))
+        {
+            <div class="form-group">
+                <label class = "col-sm-2 control-label">Name</label>
+                <div class="col-xs-10 form-group">
+                    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 form-group">
+                    <label>Erasmus code</label>
+                </div>
+                <div class="col-xs-10 form-group">
+                    @Html.TextBoxFor(x => x.ErasmusCode, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 form-group">
+                    <label>Country</label>
+                </div>
+                <div class="col-xs-10 form-group">
+                    @Html.TextBoxFor(x => x.Country, new { @class = "form-control"})
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 form-group">
+                    <label>City</label>
+                </div>
+                <div class="col-xs-10 form-group">
+                    @Html.TextBoxFor(x => x.City, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 form-group">
+                    <label>Address</label>
+                </div>
+                <div class="col-xs-10 form-group">
+                    @Html.TextBoxFor(x => x.Address, new { @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 form-group">
+                    <label>Faculties</label>
+                </div>
+                <div class="col-xs-10 form-group">
+                    @Html.ListBoxFor(x => x.SelectedFaculties, Model.Faculties, new {id = "faculties", @class = "form-control" })
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-offset-9">
+                </div>
+                <div class="col-xs-2 ">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

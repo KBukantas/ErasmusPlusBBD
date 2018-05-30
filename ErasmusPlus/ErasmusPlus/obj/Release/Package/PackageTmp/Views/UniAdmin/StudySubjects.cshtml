@@ -1,0 +1,42 @@
+﻿@model ErasmusPlus.Models.ViewModels.Admin.StudySubjectsViewModel
+@{
+    ViewBag.Title = "Study subjects";
+}
+
+<div class="row">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3> Study subjects </h3>
+        </div>
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Credits</th>
+                    <th>Evaluation</th>
+                    <th>Language</th>
+                    <th>Semester</th>
+                    <th>Field of study</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.StudySubjects)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td>@item.Name</td>
+                        <td>@item.Credits</td>
+                        <td>@item.Evaluation</td>
+                        <td>@item.Language</td>
+                        <td>@item.Semester</td>
+                        <td>@item.FieldOfStudyName</td>
+                        <td>@Html.ActionLink("Edit", "EditStudySubject", "UniAdmin", new { id = item.Id }, new { @class = "btn btn-success" })</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

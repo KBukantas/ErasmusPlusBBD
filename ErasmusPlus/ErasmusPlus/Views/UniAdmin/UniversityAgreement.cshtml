@@ -1,0 +1,33 @@
+﻿@model ErasmusPlus.Models.ViewModels.Admin.UniversityAgreementViewModel
+@{
+    ViewBag.Title = "University agreement";
+}
+
+@* Use this input to change page context in diferent views *@
+<input type="hidden" style="display: none" id="CurrentPage" value="UniversityAgreementUniAdmin" />
+
+<div class="box box-default">
+    <div class="box-body">
+        @using (Html.BeginForm("UniversityAgreement", "UniAdmin", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="col-xs-6 form-group">
+                    @Html.HiddenFor(x => x.SourceUniversityId)
+                    @Html.HiddenFor(x => x.SourceUniversityName)
+                    <label>@Model.SourceUniversityName</label>
+                </div>
+                <div class="col-xs-6 form-group">
+                    @Html.DropDownListFor(x => x.TargetUniversityId, Model.TargetUniversityList, "Select target university", new { id = "targetUniversity" })
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-offset-9">
+                </div>
+                <div class="col-xs-3 ">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

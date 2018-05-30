@@ -1,0 +1,39 @@
+﻿@model ErasmusPlus.Models.ViewModels.Admin.UniversitiesViewModel
+@{
+    ViewBag.Title = "Universities";
+}
+
+<div class="row">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3> Universities </h3>
+        </div>
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Erasmus code</th>
+                        <th>Country</th>
+                        <th>City</th>
+                        <th>Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Universities)
+                    {
+                        <tr>
+                            <td>@item.Id</td>
+                            <td>@item.Name</td>
+                            <td>@item.ErasmusCode</td>
+                            <td>@item.Country</td>
+                            <td>@item.City</td>
+                            <td>@item.Address</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

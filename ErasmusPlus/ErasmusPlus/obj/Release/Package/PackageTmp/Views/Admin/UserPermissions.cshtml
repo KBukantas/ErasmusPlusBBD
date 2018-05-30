@@ -1,0 +1,34 @@
+﻿@model List<ErasmusPlus.Models.ViewModels.Admin.UserListViewModel>
+@{
+    ViewBag.Title = "Users list";
+}
+<div class="row">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3> Current users</h3>
+        </div>
+        <div class="box-body">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.UserId</td>
+                        <td>@item.Email</td>
+                        <td>@item.Role</td>
+                        <td>@Html.ActionLink("Edit permissions", "EditPermissions", "Admin", new { userId = item.UserId }, new { @class = "btn btn-primary" })</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
